@@ -55,8 +55,7 @@ def create_city(state_id):
     data = request.get_json()
     new_city = City(**data)
     new_city.state_id = state_id
-    storage.new(new_city)
-    storage.save()
+    new_city.save()
     return jsonify(new_city.to_dict()), 201
 
 
@@ -73,5 +72,5 @@ def update_city(city_id):
     for key, value in data.items():
         if key not in ignore_keys:
             setattr(city, key, value)
-    storage.save()
+    city.save()
     return jsonify(city.to_dict()), 200
