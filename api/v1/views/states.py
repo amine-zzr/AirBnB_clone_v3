@@ -45,7 +45,7 @@ def create_state():
     if 'name' not in request.json:
         abort(400, 'Missing name')
     new_state = State(**request.get_json())
-    storage.save()
+    new_state.save()
     return jsonify(new_state.to_dict()), 201
 
 
@@ -62,5 +62,5 @@ def update_state(state_id):
     for key, value in data.items():
         if key not in ignore_keys:
             setattr(state, key, value)
-    storage.save()
+    state.save()
     return jsonify(state.to_dict()), 200
