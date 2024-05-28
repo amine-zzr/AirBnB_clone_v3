@@ -3,7 +3,7 @@
 
 from flask import jsonify, abort
 from api.v1.views import app_views
-from models import storage
+from models import storage, storage_t
 from models.place import Place
 from models.amenity import Amenity
 from os import getenv
@@ -13,7 +13,7 @@ from os import getenv
                  strict_slashes=False)
 def get_amenities(place_id):
     """Retrieve the list of all Amenity objects of a Place."""
-    place = storage.get("Place", place_id)
+    place = storage.get(Place, place_id)
     if not place:
         abort(404)
 
@@ -30,15 +30,15 @@ def get_amenities(place_id):
                  methods=['DELETE'], strict_slashes=False)
 def delete_amenity_from_place(place_id, amenity_id):
     """Delete an Amenity object from a Place."""
-    place = storage.get("Place", place_id)
+    place = storage.get(Place, place_id)
     if not place:
         abort(404)
 
-    amenity = storage.get("Amenity", amenity_id)
+    amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
 
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
+    if storage_t == 'db':
         if amenity not in place.amenities:
             abort(404)
         place.amenities.remove(amenity)
@@ -55,11 +55,11 @@ def delete_amenity_from_place(place_id, amenity_id):
                  methods=['POST'], strict_slashes=False)
 def link_amenity_to_place(place_id, amenity_id):
     """Link an Amenity object to a Place."""
-    place = storage.get("Place", place_id)
+    place = storage.get(Place, place_id)
     if not place:
         abort(404)
 
-    amenity = storage.get("Amenity", amenity_id)
+    amenity = storage.get(Amenity, amenity_id)
     if not amenity:
         abort(404)
 
