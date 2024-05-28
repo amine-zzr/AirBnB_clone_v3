@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """API actions for linking Place and Amenity objects."""
 
-from flask import jsonify, abort, Flask
+from flask import jsonify, abort
 from api.v1.views import app_views
 from models import storage
 from models.place import Place
