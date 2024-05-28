@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """API actions for linking Place and Amenity objects."""
 
-from flask import jsonify, abort
+from flask import jsonify, abort, Flask
 from api.v1.views import app_views
-from models import storage, storage_t
+from models import storage
 from models.place import Place
 from models.amenity import Amenity
 from os import getenv
@@ -38,7 +38,7 @@ def delete_amenity_from_place(place_id, amenity_id):
     if not amenity:
         abort(404)
 
-    if storage_t == 'db':
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
         if amenity not in place.amenities:
             abort(404)
         place.amenities.remove(amenity)
