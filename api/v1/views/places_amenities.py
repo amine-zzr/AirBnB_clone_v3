@@ -13,7 +13,7 @@ from os import getenv
                  strict_slashes=False)
 def get_amenities(place_id):
     """Retrieve the list of all Amenity objects of a Place."""
-    place = storage.get(Place, place_id)
+    place = storage.get("Place", place_id)
     if not place:
         abort(404)
 
@@ -30,11 +30,11 @@ def get_amenities(place_id):
                  methods=['DELETE'], strict_slashes=False)
 def delete_amenity_from_place(place_id, amenity_id):
     """Delete an Amenity object from a Place."""
-    place = storage.get(Place, place_id)
+    place = storage.get("Place", place_id)
     if not place:
         abort(404)
 
-    amenity = storage.get(Amenity, amenity_id)
+    amenity = storage.get("Amenity", amenity_id)
     if not amenity:
         abort(404)
 
@@ -55,11 +55,11 @@ def delete_amenity_from_place(place_id, amenity_id):
                  methods=['POST'], strict_slashes=False)
 def link_amenity_to_place(place_id, amenity_id):
     """Link an Amenity object to a Place."""
-    place = storage.get(Place, place_id)
+    place = storage.get("Place", place_id)
     if not place:
         abort(404)
 
-    amenity = storage.get(Amenity, amenity_id)
+    amenity = storage.get("Amenity", amenity_id)
     if not amenity:
         abort(404)
 
